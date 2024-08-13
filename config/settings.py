@@ -26,9 +26,7 @@ THIRD_PARTY_APPS = [
     "rest_framework_simplejwt",
 ]
 
-LOCAL_APPS = [
-
-]
+LOCAL_APPS = []
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
@@ -64,9 +62,7 @@ WSGI_APPLICATION = "config.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": environ.get(
-            "DB_ENGINE", default="django.db.backends.postgresql"
-        ),
+        "ENGINE": environ.get("DB_ENGINE", default="django.db.backends.postgresql"),
         "NAME": environ.get("DB_NAME", default="github-actions"),
         "USER": environ.get("DB_USER", default="postgres"),
         "PASSWORD": environ.get("DB_PASSWORD", default="postgres"),
@@ -89,8 +85,7 @@ SPECTACULAR_SETTINGS = {
 }
 
 REST_FRAMEWORK = {
-    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination."
-    "LimitOffsetPagination",
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination." "LimitOffsetPagination",
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ],
