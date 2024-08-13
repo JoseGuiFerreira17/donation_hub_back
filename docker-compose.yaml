@@ -1,0 +1,44 @@
+services:
+  donation_db:
+    container_name: donation_db
+    image: postgres:13.0-alpine
+    volumes:
+      - donation_data:/var/lib/postgresql/data/
+    env_file:
+      - .db.env
+    ports:
+      - "${DB_CONTAINER_PORT}:${DB_PORT}"
+    restart: always
+    networks:
+      donation_network:
+        ipv4_address: 10.8.0.2
+    hostname: donation_db
+
+  donation_django:
+    container_name: donation_django
+    build:
+      context: .
+      args:
+        - REQUIREMENTS_PATH=${REQUIREMENTS_PATH}
+    command: ${BACKEND_COMMAND}
+    volumes:
+      - .:/home/app/
+      - ${MEDIA_ROOT}:/home/app/media
+    ports:
+      - "${BACKEND_CONTAINER_PORT}:${BACKEND_PORT}"
+    env_file:
+      - .env
+    depends_on:
+      - donation_db
+    restart: always
+    networks:
+      donation_network:
+        ipv4_address: 10.8.0.3
+    hostname: donation_django
+
+volumes:
+  donation_data:
+
+networks:
+  donation_network:
+      external: true
