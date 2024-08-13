@@ -1,4 +1,4 @@
-# API de Escola
+# API de Gestão de Doações para Organizações de Caridade
 
 O Sistema de Gestão de Doações para Organizações de Caridade é uma aplicação web projetada para ajudar organizações de caridade a gerenciar doações de forma eficiente e organizada. Este sistema permite que as organizações importem listas de doações a partir de arquivos CSV, exportem relatórios detalhados e visualizem estatísticas sobre as doações recebidas.
 
