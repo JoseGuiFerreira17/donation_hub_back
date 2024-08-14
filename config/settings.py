@@ -113,7 +113,8 @@ SIMPLE_JWT = {
     "REFRESH_TOKEN_LIFETIME": timedelta(
         minutes=int(environ.get("REFRESH_TOKEN_LIFETIME", default=10))
     ),
-    "TOKEN_OBTAIN_SERIALIZER": "apps.accounts.api.serializers.TokenObtainPairSerializer",
+    "TOKEN_OBTAIN_SERIALIZER": "apps.accounts.api.serializers."
+    "TokenObtainPairSerializer",
 }
 
 LANGUAGE_CODE = "pt-br"

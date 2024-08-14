@@ -1,5 +1,8 @@
-from rest_framework_simplejwt.serializers import TokenObtainPairSerializer as BaseTokenObtainPairSerializer
+from rest_framework_simplejwt.serializers import (
+    TokenObtainPairSerializer as BaseTokenObtainPairSerializer,
+)
 from apps.accounts.api.serializers import UserSerializer
+
 
 class TokenObtainPairSerializer(BaseTokenObtainPairSerializer):
     def validate(self, attrs):
