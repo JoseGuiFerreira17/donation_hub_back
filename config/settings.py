@@ -24,9 +24,11 @@ THIRD_PARTY_APPS = [
     "drf_spectacular",
     "rest_framework",
     "rest_framework_simplejwt",
+    "rest_framework_simplejwt.token_blacklist",
 ]
 
 LOCAL_APPS = [
+    "apps.accounts",
     "apps.core",
 ]
 
@@ -62,6 +64,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "config.wsgi.application"
 
+AUTH_USER_MODEL = "accounts.User"
+
 DATABASES = {
     "default": {
         "ENGINE": environ.get("DB_ENGINE", default="django.db.backends.postgresql"),
@@ -88,8 +92,16 @@ SPECTACULAR_SETTINGS = {
 
 REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination." "LimitOffsetPagination",
-    "DEFAULT_AUTHENTICATION_CLASSES": [
-        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        [
+            "rest_framework_simplejwt.authentication.JWTAuthentication",
+            "rest_framework.authentication.SessionAuthentication",
+        ]
+        if DEBUG
+        else ["rest_framework_simplejwt.authentication.JWTAuthentication"]
+    ),
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.IsAuthenticated",
     ],
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
@@ -101,8 +113,7 @@ SIMPLE_JWT = {
     "REFRESH_TOKEN_LIFETIME": timedelta(
         minutes=int(environ.get("REFRESH_TOKEN_LIFETIME", default=10))
     ),
-    "TOKEN_OBTAIN_SERIALIZER": "apps.accounts.api.serializers."
-    "TokenObtainPairSerializer",
+    "TOKEN_OBTAIN_SERIALIZER": "apps.accounts.api.serializers.TokenObtainPairSerializer",
 }
 
 LANGUAGE_CODE = "pt-br"
