@@ -1,5 +1,9 @@
 from apps.core.api.viewsets import BaseModelViewSet
-from apps.accounts.api.serializers import UserSerializer, UserUpdatePasswordSerializer
+from apps.accounts.api.serializers import (
+    UserSerializer,
+    UserUpdatePasswordSerializer,
+    UserCreateSerializer,
+)
 from apps.accounts.models import User
 from apps.accounts.api.filtersets import UserFilterSet
 
@@ -12,6 +16,7 @@ class UserViewSet(BaseModelViewSet):
     serializer_class = UserSerializer
     filterset_class = UserFilterSet
     action_serializer_classes = {
+        "create": UserCreateSerializer,
         "password": UserUpdatePasswordSerializer,
     }
 

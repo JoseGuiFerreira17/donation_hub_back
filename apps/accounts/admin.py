@@ -21,6 +21,7 @@ class UserAdmin(admin.ModelAdmin):
         ),
         ("Datas", {"fields": ("created_at", "modified_at")}),
     )
+    readonly_fields = ["created_at", "modified_at"]
     ordering = ["-created_at"]
 
     actions = ["activate_users", "deactivate_users"]
